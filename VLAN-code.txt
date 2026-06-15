@@ -1,0 +1,104 @@
+
+
+
+Set VLAN 10,20,30
+-----------------------------------
+Syntax:
+	Switch> enable
+	Switch# configure terminal
+	Switch(config)# vlan 10
+	Switch(config-vlan)# name Smart_Home
+	Switch(config-vlan)# exit
+	Switch(config)# exit
+	Switch#
+============code for switch0-Home (VLAN10)==============
+en
+conf t
+vlan 10
+name Smart_Home
+exit
+exit
+
+conf t
+interface range fa0/2 - 5
+switchport mode access
+switchport access vlan 10
+exit
+
+interface fa0/1
+switchport mode trunk
+exit
+
+============code for switch1-Security (VLAN20)==============
+en
+conf t
+vlan 20
+name Security_Office
+exit
+exit
+
+conf t
+interface range fa0/2 - 24
+switchport mode access
+switchport access vlan 20
+exit
+
+
+interface fa0/1
+switchport mode trunk
+exit
+
+
+============code for switch2-Park_Garden (VLAN30)==============
+en
+conf t
+vlan 30
+name Park_Garden
+exit
+exit
+
+
+conf t
+interface range fa0/2 - 3
+switchport mode access
+switchport access vlan 30
+exit
+
+interface fa0/1
+switchport mode trunk
+exit
+===================code on router==================
+en
+conf t
+
+interface gig0/0
+ip address 192.168.10.1 255.255.255.0
+no shutdown
+exit
+
+interface gig0/1
+ip address 192.168.20.1 255.255.255.0
+no shutdown
+exit
+
+interface gig0/2
+ip address 192.168.30.1 255.255.255.0
+no shutdown
+exit
+
+
+
+=======================================
+
+/*check connection In Router CLI:*/
+
+show ip interface brief
+
+/*This will show the status and IP of each port/*
+
+
+
+/*check connection In Router CLI:*/
+enable
+show vlan brief
+
